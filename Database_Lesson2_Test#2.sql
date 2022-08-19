@@ -5,9 +5,7 @@ CREATE TABLE IF NOT EXISTS Genres (
 
 CREATE TABLE IF NOT EXISTS Exutor (
 	exutor_id int PRIMARY key,
-	exutor_name varchar(128) not null,
-	genres VARCHAR(60),
-	exutor_name VARCHAR(60)
+	exutor_name varchar(128) not null
 	);
 
 CREATE TABLE IF NOT EXISTS Exutor_genres (
@@ -15,14 +13,11 @@ CREATE TABLE IF NOT EXISTS Exutor_genres (
 	exutor_id int REFERENCES Exutor(exutor_id),
 	primary key(genre_id, exutor_id)
 	);
-	
 
 CREATE TABLE IF NOT EXISTS Albums (
 	Album_id int primary key,
-	Album_name varchar(80),
 	Title VARCHAR(80),
-	year_title VARCHAR(80),
-	Exutor VARCHAR(80)
+	year_title int
 	);
 
 CREATE TABLE IF NOT EXISTS Album_Exutor (
@@ -32,18 +27,23 @@ CREATE TABLE IF NOT EXISTS Album_Exutor (
 	);
 
 CREATE TABLE IF NOT EXISTS Songs (
-	Song_id int PRIMARY KEY REFERENCES Albums(Album_id),
+	Song_id int PRIMARY KEY,
 	Song_name VARCHAR(60),
 	title varchar(80),
-	Album varchar(80),
-	Duration varchar(80)
+	Duration int
 	);
 
-	
+CREATE TABLE IF NOT EXISTS Albums_songs (
+	Album_id int REFERENCES Albums(Album_id),
+	Song_id int references Songs(Song_id),
+	primary key(Album_id, Song_id)
+	);
+
+
 CREATE TABLE IF NOT EXISTS Collection (
 	Collection_id int PRIMARY key,
 	Collection_name varchar(80) not null,
-	year_collection varchar(80) not null,
+	year_collection int not null,
 	name_collection varchar(80) not null
 	);
 
@@ -52,5 +52,4 @@ CREATE TABLE IF NOT EXISTS Collection_song (
 	Song_id int references Songs(Song_id),
 	primary key(Collection_id, Song_id)
 	);
-
 
